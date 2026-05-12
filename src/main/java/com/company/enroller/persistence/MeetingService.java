@@ -44,4 +44,5 @@ public class MeetingService {
         connector.getSession().merge(meeting);
         transaction.commit();
     }
+
 }
