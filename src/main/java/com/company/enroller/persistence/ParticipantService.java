@@ -45,4 +45,27 @@ public class ParticipantService {
         transaction.commit();
     }
 
+    public Collection<Participant> getAll(String sortBy, String sortOrder, String key) {
+
+        String hql = "FROM Participant";
+
+        // filtrowaine
+        if (key != null && !key.isEmpty()) {
+            hql += " WHERE login LIKE :key";
+        }
+
+        // sortowanie
+        if ("login".equalsIgnoreCase(sortBy)) {
+            hql += " ORDER BY login " + ("DESC".equalsIgnoreCase(sortOrder) ? "DESC" : "ASC");
+        }
+
+        Query query = connector.getSession().createQuery(hql);
+
+        if (key != null && !key.isEmpty()) {
+            query.setParameter("key", "%" + key + "%");
+        }
+
+        return query.list();
+    }
+
 }
