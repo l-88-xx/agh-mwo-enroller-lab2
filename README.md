@@ -64,7 +64,7 @@ Do chronionych endpointów konieczny jest nagłówek: Authorization: Bearer JWT_
 
 ## Hasło
 - wymagane
-- długość: 4–20 znaków
+- długość: 4–100 znaków
 
 # Statusy HTTP
 

@@ -17,8 +17,8 @@ public class Participant {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column
     @NotBlank(message = "Password must be not empty")
-    @Size(min = 4, max = 20,
-            message = "Password must have 4-20 characters")
+    @Size(min = 4, max = 100,
+            message = "Password must have 4-100 characters")
     private String password;
 
     @Id
