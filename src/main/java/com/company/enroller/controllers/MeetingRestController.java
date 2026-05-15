@@ -95,7 +95,7 @@ public class MeetingRestController {
 
     // POST /meetings/{id}/participants - dodaje uczestnika do spotkania
 
-    @RequestMapping(value = "/{id}/participants", method = RequestMethod.POST)
+/*    @RequestMapping(value = "/{id}/participants", method = RequestMethod.POST)
     public ResponseEntity<?> registerMeetingsParticipants(
             @PathVariable("id") long id,
             @RequestBody Participant participant) {
@@ -109,12 +109,11 @@ public class MeetingRestController {
         foundMeeting.getParticipants().add(participant);
         meetingService.update(foundMeeting);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+    }*/
 
 
-    // TODO: nowsze
     // POST meetings/{id}/participants
-/*    @RequestMapping(value = "/{id}/participants", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/participants", method = RequestMethod.POST)
     public ResponseEntity<?> addParticipant(
             @PathVariable("id") long id,
             @RequestBody Participant participantRequest) {
@@ -133,7 +132,7 @@ public class MeetingRestController {
         meetingService.update(meeting);
 
         return new ResponseEntity<>(participant, HttpStatus.CREATED);
-    }*/
+    }
 
     // DELETE meetings/{id}/participants/{login}
     @RequestMapping(value = "/{id}/participants/{login}", method = RequestMethod.DELETE)
@@ -160,7 +159,6 @@ public class MeetingRestController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 
 }

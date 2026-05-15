@@ -3,6 +3,7 @@ package com.company.enroller.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class Meeting {
     private String description;
 
     @Column
-    private String date;
+    private LocalDate date;
 
     @JsonIgnore
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -42,7 +43,7 @@ public class Meeting {
         return description;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -58,7 +59,7 @@ public class Meeting {
         this.description = description;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -73,5 +74,4 @@ public class Meeting {
     public Collection<Participant> getParticipants() {
         return participants;
     }
-
 }
