@@ -2,6 +2,7 @@ package com.company.enroller.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,11 +33,23 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.POST, "/participants").permitAll()
+                .antMatchers(HttpMethod.POST, "/tokens").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JWTAuthenticationFilter(authenticationManager(), secret, issuer, tokenExpiration),
+                .addFilterBefore(
+                        new JWTAuthenticationFilter(
+                                authenticationManager(),
+                                secret,
+                                issuer,
+                                tokenExpiration),
                         UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .addFilter(
+                        new JWTAuthorizationFilter(
+                                authenticationManager(),
+                                secret))
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     //jak ładować użytkowników, sprawdzać hasła

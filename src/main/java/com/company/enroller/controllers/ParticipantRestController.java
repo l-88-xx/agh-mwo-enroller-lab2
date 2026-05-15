@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -45,7 +46,7 @@ public class ParticipantRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<?> addParticipant(@RequestBody Participant participant) {
+    public ResponseEntity<?> addParticipant(@Valid @RequestBody Participant participant) {
         if (participantService.findByLogin(participant.getLogin()) != null) {
             return new ResponseEntity<String>(
                     "Unable to create. A participant with login " + participant.getLogin() + " already exist.",
@@ -76,7 +77,7 @@ public class ParticipantRestController {
     @RequestMapping(value = "/{login}", method = RequestMethod.PUT)
     public ResponseEntity<?> update(
             @PathVariable("login") String login,
-            @RequestBody Participant updatedParticipant) {
+            @Valid @RequestBody Participant updatedParticipant) {
 
         Participant participant = participantService.findByLogin(login);
         if (participant == null) {
